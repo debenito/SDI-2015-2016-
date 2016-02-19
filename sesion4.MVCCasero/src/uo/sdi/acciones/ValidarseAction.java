@@ -19,7 +19,6 @@ public class ValidarseAction implements Accion {
 		String nombreUsuario = request.getParameter("nombreUsuario");
 		String pass = request.getParameter("pass");
 		HttpSession session = request.getSession();
-
 		if (session.getAttribute("user") == null) {
 			UserDao dao = PersistenceFactory.newUserDao();
 			User userByLogin = dao.findByLogin(nombreUsuario);
@@ -32,7 +31,7 @@ public class ValidarseAction implements Accion {
 				Log.info("El usuario [%s] no está registrado", nombreUsuario);
 				resultado = "FRACASO";
 			}
-		} else if (!validarUsuario((User)session.getAttribute("user"), nombreUsuario)) {
+		} else if (!validarUsuario((User)session.getAttribute("user"), nombreUsuario) ) {
 			Log.info(
 					"Se ha intentado iniciar sesión como [%s] teniendo la sesión iniciada como [%s]",
 					nombreUsuario,
@@ -50,8 +49,8 @@ public class ValidarseAction implements Accion {
 				String.valueOf(contador + 1));
 	}
 
-	private boolean validarUsuario(User userByLogin, String contraseña){
-		return userByLogin!=null && contraseña.equals(userByLogin.getPassword());
+	private boolean validarUsuario(User userByLogin, String nombreUsuario){
+		return userByLogin!=null && nombreUsuario.equals(userByLogin.getLogin());
 		}
 
 	@Override

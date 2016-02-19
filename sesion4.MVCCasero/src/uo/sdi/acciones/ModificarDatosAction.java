@@ -15,17 +15,31 @@ public class ModificarDatosAction implements Accion {
     public String execute(HttpServletRequest request,
 	    HttpServletResponse response) {
 
-	String passVieja = request.getParameter("pass");
 	HttpSession session = request.getSession();
 	User usuario = ((User) session.getAttribute("user"));
-	User usuarioNuevo = ((User) request.getAttribute("userNuevo"));
-
-	String passNueva = request.getParameter("pass1");
+	String passNueva = request.getParameter("pass");
+	String passVieja = request.getParameter("passVieja");
+	String passNueva1 = request.getParameter("pass1");
+	String nombre = request.getParameter("name");
+	String apellidos = request.getParameter("surname");
+	String email = request.getParameter("email");
+	String login = request.getParameter("login");
+	UserDao dao = PersistenceFactory.newUserDao();
 	try {
-
-	    UserDao dao = PersistenceFactory.newUserDao();
-	    if (comprobacionContraseña(usuario, passVieja, passNueva)) {
+	    if (!comprobacionContraseñasIguales(passNueva, passNueva1)) {
+		request.setAttribute("mensajeError",
+			"Contraseñas diferentes contraseña 1 :" + passNueva
+				+ " Contraseña 2 :" + passNueva1);
+		Log.error(
+			"Contraseñas diferentes contraseña 1 :[%s] Contraseña 2 : [%s]",
+			passNueva, passNueva1);
+	    }
+	    else if (comprobacionContraseñaVieja(dao, passVieja, usuario.getId())) {
+		usuario.setEmail(email);
+		usuario.setLogin(login);
+		usuario.setName(nombre);
 		usuario.setPassword(passNueva);
+		usuario.setSurname(apellidos);
 		dao.update(usuario);
 		Log.debug("Modificado usuario [%s] con el valor",
 			usuario.getLogin());
@@ -47,11 +61,16 @@ public class ModificarDatosAction implements Accion {
 	return "EXITO";
     }
 
-    private boolean comprobacionContraseña(User usuario, String passVieja,
-	    String passNueva) {
+    private boolean comprobacionContraseñasIguales(String passNueva,
+	    String passNueva1) {
 
-	return passVieja.equals(usuario.getPassword()) && passVieja != ""
-		&& passNueva != "";
+	return passNueva.equals(passNueva1);
+    }
+
+    private boolean comprobacionContraseñaVieja(UserDao dao, String passVieja,
+	    long id) {
+	User u = dao.findById(id);
+	return passVieja.equals(u.getPassword()) && passVieja != "";
     }
 
     @Override
