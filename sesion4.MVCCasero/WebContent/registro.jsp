@@ -46,5 +46,6 @@
    <c:out value="${mensajeError}"/>
    </c:if>
    <a href="login.jsp">Atrás</a>
+   <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

@@ -56,7 +56,7 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 			req.getSession().invalidate();
 			
 			Log.error("Se ha producido alguna excepción no manejada [%s]",e);
-
+			
 			jspSiguiente="/login.jsp";
 		}
 			
@@ -80,6 +80,8 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		
 		Accion accion=mapaDeAcciones.get(rol).get(opcion);
 		Log.debug("Elegida acción [%s] para opción [%s] y rol [%s]",accion,opcion,rol);
+		if(opcion.equals("logout"))
+		    Log.info("Se procedera a cerrar la session");
 		return accion;
 	}
 	

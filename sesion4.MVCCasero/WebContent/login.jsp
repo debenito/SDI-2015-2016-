@@ -34,5 +34,6 @@
 	<c:if test="${baseDatos != 'Abierta'}">
 	<c:out value="${baseDatos}"></c:out>
 	</c:if>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

@@ -18,6 +18,9 @@
   <listener>
     <listener-class>uo.sdi.listener.PersistentCounter</listener-class>
   </listener>
+  <listener>
+    <listener-class>uo.sdi.listener.ContactoInicializacion</listener-class>
+  </listener>
   <servlet>
     <servlet-name>Controlador</servlet-name>
     <servlet-class>uo.sdi.servlets.Controlador</servlet-class>

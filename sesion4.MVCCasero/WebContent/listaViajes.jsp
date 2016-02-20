@@ -25,5 +25,6 @@
 		</c:forEach>
 	</table>
 	<a href="login.jsp">Atrás</a>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

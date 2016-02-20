@@ -66,5 +66,6 @@
 	<c:if test="${mensajeError != null }">
 		<c:out value="${mensajeError }" />
 	</c:if>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
