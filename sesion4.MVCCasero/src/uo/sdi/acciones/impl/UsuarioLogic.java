@@ -42,6 +42,11 @@ public class UsuarioLogic implements UsuarioLogica {
 	    return userByLogin;
 	return null;
     }
+    @Override
+    public User buscarUsuarioporIdentificador(long id) {
+
+	return dao.findById(id);
+    }
 
     
 }

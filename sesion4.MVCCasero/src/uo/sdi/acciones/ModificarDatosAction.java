@@ -34,10 +34,11 @@ public class ModificarDatosAction implements Accion {
 			"Contraseñas diferentes contraseña 1 :[%s] Contraseña 2 : [%s]",
 			passNueva, passNueva1);
 	    } else if (comprobacionContraseñaVieja(passVieja, usuario)) {
-		logicaUsuario.modificar(usuario, email, login, nombre,
+		usuario =logicaUsuario.modificar(usuario, email, login, nombre,
 			passNueva1, apellidos);
+		session.setAttribute("user", usuario);
 		Log.debug("Modificado usuario [%s] con el valor",
-			usuario.getLogin());
+			login);
 	    } else {
 		request.setAttribute("mensajeError",
 			"Contraseña vieja no coincide o alguna de ellas esta vacia");
