@@ -4,17 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import uo.sdi.acciones.logic.UsuarioLogica;
 import uo.sdi.model.User;
-import uo.sdi.persistence.PersistenceFactory;
-import uo.sdi.persistence.UserDao;
 import alb.util.log.Log;
 
 public class ModificarDatosAction implements Accion {
+    // Logica del usuario
+    UsuarioLogica logicaUsuario = LogicaFactory.nuevoUsuario();
 
     @Override
     public String execute(HttpServletRequest request,
 	    HttpServletResponse response) {
-
+	// parametros rescatados de la sesion
 	HttpSession session = request.getSession();
 	User usuario = ((User) session.getAttribute("user"));
 	String passNueva = request.getParameter("pass");
@@ -24,7 +25,6 @@ public class ModificarDatosAction implements Accion {
 	String apellidos = request.getParameter("surname");
 	String email = request.getParameter("email");
 	String login = request.getParameter("login");
-	UserDao dao = PersistenceFactory.newUserDao();
 	try {
 	    if (!comprobacionContraseñasIguales(passNueva, passNueva1)) {
 		request.setAttribute("mensajeError",
@@ -33,14 +33,9 @@ public class ModificarDatosAction implements Accion {
 		Log.error(
 			"Contraseñas diferentes contraseña 1 :[%s] Contraseña 2 : [%s]",
 			passNueva, passNueva1);
-	    }
-	    else if (comprobacionContraseñaVieja(dao, passVieja, usuario.getId())) {
-		usuario.setEmail(email);
-		usuario.setLogin(login);
-		usuario.setName(nombre);
-		usuario.setPassword(passNueva);
-		usuario.setSurname(apellidos);
-		dao.update(usuario);
+	    } else if (comprobacionContraseñaVieja(passVieja, usuario)) {
+		logicaUsuario.modificar(usuario, email, login, nombre,
+			passNueva1, apellidos);
 		Log.debug("Modificado usuario [%s] con el valor",
 			usuario.getLogin());
 	    } else {
@@ -52,7 +47,7 @@ public class ModificarDatosAction implements Accion {
 	    }
 
 	} catch (Exception e) {
-	    Log.error("Algo ha ocurrido actualizando el email de [%s]",
+	    Log.error("Algo ha ocurrido actualizando usuario de login [%s]",
 		    usuario.getLogin());
 	    e.getMessage();
 	    String base = "Base de Datos Cerrada";
@@ -67,10 +62,10 @@ public class ModificarDatosAction implements Accion {
 	return passNueva.equals(passNueva1);
     }
 
-    private boolean comprobacionContraseñaVieja(UserDao dao, String passVieja,
-	    long id) {
-	User u = dao.findById(id);
-	return passVieja.equals(u.getPassword()) && passVieja != "";
+    private boolean comprobacionContraseñaVieja(String passVieja, User usuario) {
+	String contraseñaVieja = logicaUsuario
+		.comprobacionContraseñaVieja(usuario);
+	return passVieja.equals(contraseñaVieja);
     }
 
     @Override
