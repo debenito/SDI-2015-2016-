@@ -27,7 +27,14 @@
 		</tr>
 		<c:forEach var="entry" items="${listaViajes}" varStatus="i">
 			<tr id="item_${i.index}">
+			<c:choose>
+			<c:when test="${user != null }">
 				<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
+				</c:when>
+				<c:otherwise>
+				<td>${entry.id}</td>
+				</c:otherwise>
+				</c:choose>
 				<td>${entry.departure.city}</td>
 				<td>${entry.destination.city}</td>
 				<td>${entry.availablePax}</td>

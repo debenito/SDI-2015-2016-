@@ -16,10 +16,10 @@
     <listener-class>uo.sdi.listener.LoggingInitialization</listener-class>
   </listener>
   <listener>
-    <listener-class>uo.sdi.listener.PersistentCounter</listener-class>
+    <listener-class>uo.sdi.listener.ContactoInicializacion</listener-class>
   </listener>
   <listener>
-    <listener-class>uo.sdi.listener.ContactoInicializacion</listener-class>
+    <listener-class>uo.sdi.listener.PersistentCounter</listener-class>
   </listener>
   <servlet>
     <servlet-name>Controlador</servlet-name>
