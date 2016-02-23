@@ -66,6 +66,7 @@
 	<c:if test="${mensajeError != null }">
 		<c:out value="${mensajeError }" />
 	</c:if>
+	<a href="listarViajes">Lista de Viajes</a>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
