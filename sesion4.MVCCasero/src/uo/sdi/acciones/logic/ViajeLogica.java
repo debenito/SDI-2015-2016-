@@ -7,5 +7,8 @@ import uo.sdi.model.Trip;
 
 public interface ViajeLogica {
     List<Trip> listarViajes();
-    List<Rating> listarViajesRegistrado(); 
+
+    List<Rating> listarViajesRegistrado();
+
+    List<Trip> listarViajesPromotor(Long id);
 }

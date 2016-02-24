@@ -1,16 +1,16 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="comprobarNavegacion.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
 <html>
 <head>
 <title>ShareMyTrip - Listado de viajes</title>
 </head>
 <body>
-	<center>
 		<h1>ShareMyTrip - Listado de viajes</h1>
-	</center>
-	<table border="1" align="center">
+	<table border="1" >
+		
+		<c:forEach var="entry" items="${listaViajes}" varStatus="i">
 		<tr>
 			<th>ID viaje</th>
 			<th>Origen</th>
@@ -25,7 +25,6 @@
 				<th>Identificador Promotor</th>
 			</c:if>
 		</tr>
-		<c:forEach var="entry" items="${listaViajes}" varStatus="i">
 			<tr id="item_${i.index}">
 			<c:choose>
 			<c:when test="${user != null }">
@@ -50,8 +49,8 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<c:if test="${user !=null }">
-	<table border="1" align="center">
+	<c:if test="${listaViajesRegistrado !=null }">
+	<table border="1" >
 		<tr>
 			<th> Viaje </th>
 			<th>Acerca de Usuario</th>
@@ -69,6 +68,13 @@
 			</c:forEach>
 			</table>
 	</c:if>
+	<c:if test="${mensajeError != null }">
+	<c:out value="${mensajeError }" />
+	</c:if>
+	<c:if test="${mensajeViajes != null }">
+	<c:out value="${mensajeViajes }" />
+	</c:if>
+
 	<a href="login.jsp">Atrás</a>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>

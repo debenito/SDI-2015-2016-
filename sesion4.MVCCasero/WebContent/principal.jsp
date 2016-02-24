@@ -52,7 +52,7 @@
 				</tr>
 				<tr>
 				<td>Contraseña vieja</td>
-				<td><input type="password" name="passVieja" size="15" /></td>
+				<td><input type="password" name="passVieja" size="15" required="required" /></td>
 				</tr>
 				<tr>
 				<td><input type="submit" value="Confirmar"></td>
@@ -67,6 +67,7 @@
 		<c:out value="${mensajeError }" />
 	</c:if>
 	<a href="listarViajes">Lista de Viajes</a>
+	<a href="viajesPromotor">Mis Viajes</a>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
