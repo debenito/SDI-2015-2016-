@@ -8,11 +8,11 @@ public interface UsuarioLogica {
 	    String passNueva, String apellidos);
 
     String comprobacionContraseñaVieja(User usuario);
-    
-    void registrarUsuario(User usuario,String login,String nombre,String apellidos, String pass1,String nuevoEmail);
-    
+
+    void registrarUsuario(User usuario, String login, String nombre,
+	    String apellidos, String pass1, String nuevoEmail);
+
     User validacionUsuario(String nombreUsuario, String pass);
-    
 
     User buscarUsuarioporIdentificador(long id);
 }

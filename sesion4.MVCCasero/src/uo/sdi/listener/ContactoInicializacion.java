@@ -51,7 +51,7 @@ public class ContactoInicializacion implements ServletContextListener {
 			emailContacto=properties.getProperty("uo213487");
 			emailContacto2=properties.getProperty("uo214459");
 			counter=properties.getProperty("contadorSesiones");
-
+ 
 		} catch (Exception e) {}
 		arg0.getServletContext().setAttribute("copy",copyright);
 		arg0.getServletContext().setAttribute("uo213487",emailContacto);

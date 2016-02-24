@@ -24,21 +24,26 @@ public class ListarViajesAction implements Accion {
 	String base = "Base de Datos Cerrada";
 	try {
 	    viajes = logicaViajes.listarViajes();
-	    if(viajes.size() != 0)
-	    request.setAttribute("listaViajes", viajes);
+	    if (viajes.size() != 0)
+		request.setAttribute("listaViajes", viajes);
 	    else
-		request.setAttribute("mensajeViajes", "No existen viajes activos ha fecha de hoy");
+		request.setAttribute("mensajeViajes",
+			"No existen viajes activos ha fecha de hoy");
 	    Log.debug("Obtenida lista de viajes conteniendo [%d] viajes",
 		    viajes.size());
-	    if(session.getAttribute("user")!=null){
-		 List<Rating> listaViajesRegistrado = logicaViajes.listarViajesRegistrado();
-		 if(listaViajesRegistrado.size()!=0)
-		 request.setAttribute("listaViajesRegistrado", listaViajesRegistrado);
-		 else
-		     request.setAttribute("mensajeError", "Este usuario no tiene Comentarios anteriores");
-		 Log.debug("Obtenida lista de viajes del Usuario Registrado conteniendo [%d] viajes",
-			    listaViajesRegistrado.size());
-	    
+	    if (session.getAttribute("user") != null) {
+		List<Rating> listaViajesRegistrado = logicaViajes
+			.listarViajesRegistrado();
+		if (listaViajesRegistrado.size() != 0)
+		    request.setAttribute("listaViajesRegistrado",
+			    listaViajesRegistrado);
+		else
+		    request.setAttribute("mensajeError",
+			    "Este usuario no tiene Comentarios anteriores");
+		Log.debug(
+			"Obtenida lista de viajes del Usuario Registrado conteniendo [%d] viajes",
+			listaViajesRegistrado.size());
+
 	    }
 	    request.getServletContext().setAttribute("baseDatos", "Abierta");
 	} catch (Exception e) {
