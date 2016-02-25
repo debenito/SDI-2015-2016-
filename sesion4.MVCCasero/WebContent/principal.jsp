@@ -8,63 +8,24 @@
 <body>
 
 	<jsp:useBean id="user" class="uo.sdi.model.User" scope="session" />
+	
+	<div id="navSuperior">
+		<ul>
+		<li><a href="">Desconectarse</a></li>
+		</ul>
+	</div>
+	<center>
+		<h1>Bienvenido ${user.name} ${user.surname}</h1>
+	</center>
 
-	<form action="modificarDatos" method="post">
-		<table>
-			<c:if test="${user != null }">
-
-				<tr>
-					<td>Login:</td>
-					<td id="login"><input type="text"
-						value="<c:out
-							value="${user.login}"/>" name="login" /></td>
-				</tr>
-				<tr>
-					<td>Nombre:</td>
-					<td id="name"><input type="text"
-						value="<c:out
-							value="${user.name}"/>" name="name" /></td>
-				</tr>
-				<tr>
-					<td>Apellidos:</td>
-					<td id="surname"><input type="text"
-						value="<c:out
-							value="${user.surname}"/>" name="surname" />
-					</td>
-				</tr>
-				<tr>
-					<td>Email:</td>
-					<td id="email"><input type="email" name="email" size="15"
-						value="<jsp:getProperty property="email" name="user"/>"
-						pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
-					</td>
-				</tr>
-				<tr>
-					<td>Contraseña nueva:</td>
-					<td id="pass"><input type="password" name="pass" size="15" /></td>
-				</tr>
-				<tr>
-					<td>Repita contraseña:</td>
-					<td id="pass1"><input type="password" name="pass1" size="15" /></td>
-				</tr>
-				<tr>
-					<td>
-				</tr>
-				<tr>
-				<td>Contraseña vieja</td>
-				<td><input type="password" name="passVieja" size="15" /></td>
-				</tr>
-				<tr>
-				<td><input type="submit" value="Confirmar"></td>
-				</tr>
-			</c:if>
-
-		</table>
-	</form>
-	<br /> Es Vd el usuario número: ${contador}
-	<br />
-	<c:if test="${mensajeError != null }">
-		<c:out value="${mensajeError }" />
-	</c:if>
+	<div id="menu">
+	<h2>Menu</h2>
+		<ul>
+			<li><a href="modificarDatos">Modificar mis datos</a></li>
+			<li><a href="listarViajesReg">Listar viajes</a></li>
+			<li><a href="nuevoViaje">Registrar nuevo viaje</a></li>
+			<li><a href="misViajes">Mis viajes</a>
+		</ul>
+	</div>
 </body>
 </html>
