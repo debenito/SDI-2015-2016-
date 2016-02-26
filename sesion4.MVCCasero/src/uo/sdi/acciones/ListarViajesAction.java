@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import uo.sdi.acciones.logic.RatingLogica;
 import uo.sdi.acciones.logic.ViajeLogica;
 import uo.sdi.model.Rating;
 import uo.sdi.model.Trip;
@@ -14,6 +15,7 @@ import alb.util.log.Log;
 public class ListarViajesAction implements Accion {
     // Logica Viajes
     ViajeLogica logicaViajes = LogicaFactory.nuevoViaje();
+    RatingLogica logicarating = LogicaFactory.nuevoRating();
 
     @Override
     public String execute(HttpServletRequest request,
@@ -23,7 +25,7 @@ public class ListarViajesAction implements Accion {
 	HttpSession session = request.getSession();
 	String base = "Base de Datos Cerrada";
 	try {
-	    viajes = logicaViajes.listarViajes();
+	    viajes = logicaViajes.listarViajesActivos();
 	    if (viajes.size() != 0)
 		request.setAttribute("listaViajes", viajes);
 	    else
@@ -32,17 +34,17 @@ public class ListarViajesAction implements Accion {
 	    Log.debug("Obtenida lista de viajes conteniendo [%d] viajes",
 		    viajes.size());
 	    if (session.getAttribute("user") != null) {
-		List<Rating> listaViajesRegistrado = logicaViajes
-			.listarViajesRegistrado();
-		if (listaViajesRegistrado.size() != 0)
+		List<Rating> comentariosYpuntuaciones = logicarating
+			.comentariosSobrePromotor();
+		if (comentariosYpuntuaciones.size() != 0)
 		    request.setAttribute("listaViajesRegistrado",
-			    listaViajesRegistrado);
+			    comentariosYpuntuaciones);
 		else
 		    request.setAttribute("mensajeError",
 			    "Este usuario no tiene Comentarios anteriores");
 		Log.debug(
 			"Obtenida lista de viajes del Usuario Registrado conteniendo [%d] viajes",
-			listaViajesRegistrado.size());
+			comentariosYpuntuaciones.size());
 
 	    }
 	    request.getServletContext().setAttribute("baseDatos", "Abierta");

@@ -1,5 +1,7 @@
 package uo.sdi.persistence;
 
+import java.util.List;
+
 import uo.sdi.model.Rating;
 import uo.sdi.persistence.util.GenericDao;
 
@@ -11,5 +13,7 @@ public interface RatingDao extends GenericDao<Rating, Long> {
 			Long fromUserId, 
 			Long fromTripId
 		); 
+	
+	List<Rating> comentariosSobrePromotor();
 	
 }

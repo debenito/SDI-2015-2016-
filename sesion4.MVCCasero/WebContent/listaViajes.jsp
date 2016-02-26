@@ -75,7 +75,7 @@
 	<c:if test="${mensajeViajes != null }">
 		<c:out value="${mensajeViajes }" />
 	</c:if>
-
+<!-- Acordarse de quitar el atras que solo vale para usuarios Publicos -->
 	<a href="login.jsp">Atrás</a>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>

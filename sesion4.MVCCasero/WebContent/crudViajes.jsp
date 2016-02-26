@@ -40,32 +40,31 @@
 			<th>Plazas Maximas</th>
 			<th>Plazas ocupadas</th>
 		</tr>
-		<c:forEach var="entry" items="${listaViajes}" varStatus="i">
+		<c:forEach var="entry" items="${viajesPromotor}" varStatus="i">
 			<tr id="item_${i.index}">
-				<c:choose>
-					<c:when test="${user != null }">
-						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
-					</c:when>
-					<c:otherwise>
-						<td>${entry.id}</td>
-					</c:otherwise>
-				</c:choose>
+				<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
 				<td>${entry.departure.city}</td>
+				<td>${entry.departure.city}</td>
+				<td>${entry.departure.country }</td>
+				<td>${entry.departure.zipCode }</td>
+				<td>${entry.departure.waypoint }</td>
+				<td>${entry.arrivalDate.date}</td>
+				<td>${entry.arrivalDate.time}</td>
 				<td>${entry.destination.city}</td>
+				<td>${entry.destination.country }</td>
+				<td>${entry.destination.zipCode }</td>
+				<td>${entry.destination.waypoint }</td>
+				<td>${entry.departureDate}</td>
 				<td>${entry.availablePax}</td>
-				<c:if test="${user!=null  }">
-					<td>${entry.arrivalDate}</td>
-					<td>${entry.departureDate}</td>
-					<td>${entry.maxPax}</td>
-					<td>${entry.estimatedCost}</td>
-					<td>${entry.comments}</td>
-					<td>${entry.promoterId }</td>
+				<td>${entry.maxPax}</td>
+				<td>${entry.estimatedCost}</td>
+				<td>${entry.comments}</td>
+				<td>${entry.promoterId }</td>
 
-				</c:if>
 			</tr>
 		</c:forEach>
 	</table>
-	<a href="login.jsp">Atrás</a>
+	<a href="listarViajes">Atrás</a>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
