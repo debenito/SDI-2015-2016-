@@ -43,7 +43,7 @@ public class ListarViajesAction implements Accion {
 		    request.setAttribute("mensajeError",
 			    "Este usuario no tiene Comentarios anteriores");
 		Log.debug(
-			"Obtenida lista de viajes del Usuario Registrado conteniendo [%d] viajes",
+			"Obtenida lista de comentarios del Usuario Registrado conteniendo [%d] viajes",
 			comentariosYpuntuaciones.size());
 
 	    }

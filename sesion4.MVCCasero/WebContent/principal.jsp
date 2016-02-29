@@ -41,11 +41,11 @@
 				</tr>
 				<tr>
 					<td>Contraseña nueva:</td>
-					<td id="pass"><input type="password" name="pass" size="15" required="required" /></td>
+					<td id="pass"><input type="password" name="pass" size="15"  /></td>
 				</tr>
 				<tr>
 					<td>Repita contraseña:</td>
-					<td id="pass1"><input type="password" name="pass1" size="15" required="required"  /></td>
+					<td id="pass1"><input type="password" name="pass1" size="15"   /></td>
 				</tr>
 				<tr>
 					<td>

@@ -26,27 +26,37 @@ public class ModificarDatosAction implements Accion {
 	String email = request.getParameter("email");
 	String login = request.getParameter("login");
 	try {
-	    if (!comprobacionContraseñasIguales(passNueva, passNueva1)) {
-		request.setAttribute("mensajeError",
-			"Contraseñas diferentes contraseña 1 :" + passNueva
-				+ " Contraseña 2 :" + passNueva1);
-		Log.error(
-			"Contraseñas diferentes contraseña 1 :[%s] Contraseña 2 : [%s]",
-			passNueva, passNueva1);
-	    } else if (comprobacionContraseñaVieja(passVieja, usuario)) {
+	   
+	    if (comprobacionContraseñaVieja(passVieja, usuario)
+		    && comprobacionContraseñasIguales(passNueva, passNueva1) &&
+		    contraseñasNuevasNoVacias(passNueva,passNueva1)) {
 		usuario =logicaUsuario.modificar(usuario, email, login, nombre,
 			passNueva1, apellidos);
 		session.setAttribute("user", usuario);
 		Log.debug("Modificado usuario [%s] con el valor",
 			login);
-	    } else {
+	    } else if(comprobacionContraseñaVieja(passVieja, usuario)
+		    &&  !contraseñasNuevasNoVacias(passNueva,passNueva1)) {
+		usuario =logicaUsuario.modificar(usuario, email, login, nombre,
+			passVieja, apellidos);
+		session.setAttribute("user", usuario);
+		Log.debug("Modificado usuario [%s] con el valor",
+			login);
+	    }else{
+		if(!comprobacionContraseñasIguales(passNueva, passNueva1)){
+		    request.setAttribute("mensajeError",
+				"Contraseña nuevas no coinciden");
+			Log.debug(
+				"Contraseña nueva de usuario [%s] no coincide con la repetida"
+					+ "[%s]", passNueva, passNueva1);
+		}else{
 		request.setAttribute("mensajeError",
 			"Contraseña vieja no coincide o alguna de ellas esta vacia");
 		Log.debug(
 			"Contraseña vieja de usuario [%s] no coincide con la antigua"
 				+ "[%s]", usuario.getLogin(), passVieja);
 	    }
-
+	    }
 	} catch (Exception e) {
 	    Log.error("Algo ha ocurrido actualizando usuario de login [%s]",
 		    usuario.getLogin());
@@ -57,10 +67,15 @@ public class ModificarDatosAction implements Accion {
 	return "EXITO";
     }
 
+    private boolean contraseñasNuevasNoVacias(String passNueva,
+	    String passNueva1) {
+	return !passNueva.isEmpty() && !passNueva1.isEmpty();
+    }
+
     private boolean comprobacionContraseñasIguales(String passNueva,
 	    String passNueva1) {
 
-	return passNueva.equals(passNueva1);
+	return passNueva.equals(passNueva1)   ;
     }
 
     private boolean comprobacionContraseñaVieja(String passVieja, User usuario) {

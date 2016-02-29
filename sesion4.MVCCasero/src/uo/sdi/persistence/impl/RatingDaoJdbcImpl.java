@@ -81,6 +81,6 @@ public class RatingDaoJdbcImpl implements RatingDao {
 	public List<Rating> comentariosSobrePromotor() {
 	    
 	    return jdbcTemplate.queryForList("RATING_SOBRE_PROMOTOR", new RatingMapper(),
-		    2,3);
+		    TripStatus.CANCELLED.ordinal(),TripStatus.DONE.ordinal());
 	}
 }

@@ -1,5 +1,7 @@
 package uo.sdi.model;
 
+import javax.xml.crypto.Data;
+
 /**
  * This class is not an entity, it is a DTO with the same fields as a row in the
  * table

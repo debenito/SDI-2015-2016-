@@ -141,7 +141,18 @@ public class TripDaoJdbcImpl implements TripDao {
     @Override
     public List<Trip> listarViajesPromotor(Long id) {
 	return jdbcTemplate.queryForList("TRIP_FIND_PROMOTOR",
-		new TripMapper(), id,3);
+		new TripMapper(), id,TripStatus.CANCELLED.ordinal());
+    }
+
+    @Override
+    public int updateCancel(Long id) {
+	return jdbcTemplate.execute("TRIP_CANCEL",TripStatus.CANCELLED.ordinal(),id);
+	
+    }
+
+    @Override
+    public int updateDone(Date hoy) {
+	return jdbcTemplate.execute("TRIP_DONE",TripStatus.DONE.ordinal(),hoy);
     }
 
 }

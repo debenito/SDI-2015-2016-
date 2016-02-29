@@ -11,10 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uo.sdi.acciones.Accion;
+import uo.sdi.acciones.ApuntarseAction;
+import uo.sdi.acciones.BorrarViajeAction;
 import uo.sdi.acciones.ListarViajesAction;
 import uo.sdi.acciones.ModificarDatosAction;
+import uo.sdi.acciones.ModificarViajeAction;
 import uo.sdi.acciones.RegistrarDatosAction;
+import uo.sdi.acciones.RegistroPromotorAction;
 import uo.sdi.acciones.ValidarseAction;
+import uo.sdi.acciones.ViajeSeleccionadoModDelAction;
 import uo.sdi.acciones.ViajesPromotorAction;
 import alb.util.log.Log;
 
@@ -117,7 +122,13 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 	mapaRegistrado.put("modificarDatos", new ModificarDatosAction());
 	mapaRegistrado.put("listarViajes", new ListarViajesAction());
 	mapaRegistrado.put("viajesPromotor", new ViajesPromotorAction());
+	mapaRegistrado.put("registroViajes", new RegistroPromotorAction());
+	mapaRegistrado.put("moddelViaje", new ViajeSeleccionadoModDelAction());
+	mapaRegistrado.put("borrarViaje", new BorrarViajeAction());
+	mapaRegistrado.put("modificarViajes", new ModificarViajeAction());
+	mapaRegistrado.put("apuntarse",new ApuntarseAction());
 	mapaDeAcciones.put("REGISTRADO", mapaRegistrado);
+	
     }
 
     private void crearMapaDeJSP() {
@@ -155,6 +166,21 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 	resJSP = new HashMap<String, String>();
 	resJSP.put("EXITO", "/crudViajes.jsp");
 	opcionResJSP.put("viajesPromotor", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/crudViajes.jsp");
+	opcionResJSP.put("registroViajes", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/ModDelViajes.jsp");
+	opcionResJSP.put("moddelViaje", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/crudViajes.jsp");
+	opcionResJSP.put("borrarViaje", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/crudViajes.jsp");
+	opcionResJSP.put("modificarViajes", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/ModDelViajes.jsp");
+	opcionResJSP.put("apuntarse", resJSP);
 	mapaDeNavegacion.put("REGISTRADO", opcionResJSP);
     }
 
