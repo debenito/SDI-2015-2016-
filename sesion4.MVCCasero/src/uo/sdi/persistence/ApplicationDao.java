@@ -9,5 +9,6 @@ public interface ApplicationDao extends GenericDao<Application, Long[]>{
 
 	List<Application> findByUserId( Long userId );
 	List<Application> findByTripId( Long tripId );
+	Application findTripByUserId(Long userId, Long tripId);
 	
 }

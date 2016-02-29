@@ -48,54 +48,10 @@ public class AddViajeAction implements Accion {
 	// TODO Auto-generated method stub
 	Trip trip= new Trip();
 	User promotor= (User) request.getSession().getAttribute("user");
-	String calle = request.getParameter("calle");
-	String ciudad = request.getParameter("ciudad");
-	String pais = request.getParameter("pais");
-	String provincia = request.getParameter("provincia");
-	String cp = request.getParameter("cp");
-	Waypoint wpSalida = new Waypoint(1.0,1.0);
-	
-	
-
-	AddressPoint salida = new AddressPoint(calle, ciudad, provincia, pais,
-		cp, wpSalida);
-
-	//Date fechaSalida = DateUtil.parseDate(request
-	//	.getParameter("fechaSalida"));
-	//long horaSalida = Long.parseLong(request.getParameter("horaSalida"));
-
-	trip.setDeparture(salida);
-	//trip.setDepartureDate(fechaSalida);
-	String calleDestino=request.getParameter("calleDestino");
-	String ciudadDestino=request.getParameter("ciudadDestino");
-	String paisDestino=request.getParameter("paisDestino");
-	String provinciaDestino=request.getParameter("provinciaDestino");
-	String cpDestino=request.getParameter("cpDestino");
-	Waypoint wpDestino=new Waypoint(1.0, 1.0);
-	
-	
-	
-	AddressPoint llegada= new AddressPoint(calleDestino, ciudadDestino, provinciaDestino, paisDestino, cpDestino, wpDestino);
-	
-	//Date fechaLlegada= DateUtil.parseDate(request.getParameter("fechaLlegada"));
-	//long horaLlegada= Long.parseLong(request.getParameter("horaLlegada")); 
-	
-	trip.setDestination(llegada);
-	//trip.setArrivalDate(fechaLlegada);
-	//Date limite=DateUtil.parseDate(request.getParameter("fechaLimite"));
-		//double coste= Double.parseDouble(request.getParameter("coste"));
-		int libre=Integer.parseInt(request.getParameter("plazas"));
-		int maximo= Integer.parseInt(request.getParameter("maximo"));
-		
-		String observaciones= request.getParameter("observaciones");
-		
-		//trip.setClosingDate(limite);
-		trip.setMaxPax(maximo);
-		trip.setAvailablePax(libre);
-		//trip.setEstimatedCost(coste);
-		trip.setComments(observaciones);
-	trip.setPromoterId(promotor.getId());
-
+		trip.setPromoterId(promotor.getId());
+	setDeparture(trip, request);
+	setArrival(trip, request);
+	setExtras(trip, request);
 	return trip;
     }
 
@@ -107,10 +63,10 @@ public class AddViajeAction implements Accion {
 	String cp = request.getParameter("cp");
 	Waypoint wpSalida = new Waypoint(1.0, 1.0);
 	
-	if (request.getParameter("alt") != null && request.getParameter("lat") != null) {
-	    double alt = Double.parseDouble(request.getParameter("alt"));
+	if (request.getParameter("lat") != null && request.getParameter("lon") != null) {
 	    double lat = Double.parseDouble(request.getParameter("lat"));
-	    wpSalida = new Waypoint(alt, lat);
+	    double lon = Double.parseDouble(request.getParameter("lon"));
+	    wpSalida = new Waypoint(lat, lon);
 	}
 
 	AddressPoint salida = new AddressPoint(calle, ciudad, provincia, pais,
@@ -118,7 +74,7 @@ public class AddViajeAction implements Accion {
 
 	//Date fechaSalida = DateUtil.parseDate(request
 	//	.getParameter("fechaSalida"));
-	long horaSalida = Long.parseLong(request.getParameter("horaSalida"));
+	//long horaSalida = Long.parseLong(request.getParameter("horaSalida"));
 
 	trip.setDeparture(salida);
 	//trip.setDepartureDate(fechaSalida);
@@ -132,16 +88,16 @@ public class AddViajeAction implements Accion {
 	String cpDestino=request.getParameter("cpDestino");
 	Waypoint wpDestino=new Waypoint(1.0, 1.0);
 	
-	if(request.getParameter("altDestino")!=null && request.getParameter("latDestino")!=null){
-	    double altDestino=Double.parseDouble(request.getParameter("altDestino"));
+	if(request.getParameter("latDestino")!=null && request.getParameter("lonDestino")!=null){
 	    double latDestino=Double.parseDouble(request.getParameter("latDestino"));
-	    wpDestino=new Waypoint(altDestino, latDestino);
+	    double lonDestino=Double.parseDouble(request.getParameter("lonDestino"));
+	    wpDestino=new Waypoint(latDestino, lonDestino);
 	}
 	
 	AddressPoint llegada= new AddressPoint(calleDestino, ciudadDestino, provinciaDestino, paisDestino, cpDestino, wpDestino);
 	
 	//Date fechaLlegada= DateUtil.parseDate(request.getParameter("fechaLlegada"));
-	long horaLlegada= Long.parseLong(request.getParameter("horaLlegada")); 
+	//long horaLlegada= Long.parseLong(request.getParameter("horaLlegada")); 
 	
 	trip.setDestination(llegada);
 	//trip.setArrivalDate(fechaLlegada);
@@ -149,16 +105,16 @@ public class AddViajeAction implements Accion {
 
     private void setExtras(Trip trip, HttpServletRequest request) {
 	//Date limite=DateUtil.parseDate(request.getParameter("fechaLimite"));
-	double coste= Double.parseDouble(request.getParameter("coste"));
-	//int libre=Integer.parseInt();
-	int maximo= Integer.parseInt("maximo");
+	//double coste= Double.parseDouble(request.getParameter("coste"));
+	//int libre=Integer.parseInt(request.getParameter("plazas"));
+	//int maximo= Integer.parseInt(request.getParameter("maximo"));
 	
 	String observaciones= request.getParameter("observaciones");
 	
 	//trip.setClosingDate(limite);
-	trip.setMaxPax(maximo);
+	//trip.setMaxPax(maximo);
 	//trip.setAvailablePax(libre);
-	trip.setEstimatedCost(coste);
+	//trip.setEstimatedCost(coste);
 	trip.setComments(observaciones);
     }
 

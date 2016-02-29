@@ -8,6 +8,7 @@
 </head>
 <body>
 <center><h1>ShareMyTrip - Listado de viajes</h1></center>
+<form action= "apuntarse?id=${viaje.id}">
 	<table id="salida">
 			<tr>
 				<td>Lugar de salida:</td>
@@ -82,8 +83,9 @@
 				<td>${viaje.comments }</td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Apuntarse"></td>
+				<td><input type="submit" value="apuntarse"></td>
 			</tr>
 		</table>
+		</form>
 </body>
 </html>

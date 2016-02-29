@@ -26,8 +26,8 @@
 			</tr>
 			<tr>
 				<td>Coordenadas GPS:</td>
-				<td>Altitud: <input id="alt" type="text"></td>
 				<td>Latitud: <input id="lat" type="text"></td>
+				<td>Longitud: <input id="lon" type="text"></td>
 			</tr>
 
 			<tr>
@@ -60,8 +60,8 @@
 			</tr>
 			<tr>
 				<td>Coordenadas GPS:</td>
-				<td>Altitud: <input id="altDestino" type="text"></td>
-				<td>Latitud: <input id="latDestino" type="text"></td>
+				<td>Latitud: <input id="latestino" type="text"></td>
+				<td>Longitud: <input id="lonDestino" type="text"></td>
 			</tr>
 			<tr>
 				<td>*Fecha de llegada: <input id="fechaLlegada" type="text"
@@ -102,7 +102,6 @@
 		</table>
 		<input id=enviar" type="submit" value="Enviar">
 	</form>
-	<jsp:useBean id="trip" class="uo.sdi.model.Trip" scope="session" />
-	${trip.id}
+	
 </body>
 </html>

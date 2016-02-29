@@ -39,8 +39,7 @@
 
 					<c:if test="${user.id!=null}">
 						<td>
-						<a href="">Detalles</a>
-						<a href="">Editar</a>
+						<a href="modificarViaje?id=${entry.id}">Editar</a>
 						<a href="">Eliminar</a></td>
 					</c:if>
 			
