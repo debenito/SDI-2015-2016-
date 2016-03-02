@@ -11,15 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uo.sdi.acciones.Accion;
-import uo.sdi.acciones.AddViajeAction;
-import uo.sdi.acciones.ApuntarseAction;
-import uo.sdi.acciones.ListarViajesAction;
-import uo.sdi.acciones.ModificarDatosAction;
-import uo.sdi.acciones.ModificarViajeAction;
-import uo.sdi.acciones.MostrarViajesAction;
-import uo.sdi.acciones.RegistrarDatosAction;
-import uo.sdi.acciones.ValidarseAction;
-import uo.sdi.acciones.VerMisViajes;
+import uo.sdi.acciones.gestionReservas.ApuntarseAction;
+import uo.sdi.acciones.gestionReservas.CancelarPlazaAction;
+import uo.sdi.acciones.gestionReservas.ComentarAction;
+import uo.sdi.acciones.gestionReservas.ConfirmarPlazaAction;
+import uo.sdi.acciones.gestionReservas.ConfirmarYEliminarUsuarioViajeAction;
+import uo.sdi.acciones.gestionReservas.ExcluirAction;
+import uo.sdi.acciones.gestionUsuarios.CargarPerfilAction;
+import uo.sdi.acciones.gestionUsuarios.ModificarDatosAction;
+import uo.sdi.acciones.gestionUsuarios.RegistrarDatosAction;
+import uo.sdi.acciones.gestionUsuarios.ValidarseAction;
+import uo.sdi.acciones.gestionViajes.BorrarViajeAction;
+import uo.sdi.acciones.gestionViajes.ModificarViajeAction;
+import uo.sdi.acciones.gestionViajes.MostrarViajesAction;
+import uo.sdi.acciones.gestionViajes.RegistroPromotorAction;
+import uo.sdi.acciones.listados.ListadoUsuariosPendientesAction;
+import uo.sdi.acciones.listados.ListarViajesAction;
+import uo.sdi.acciones.listados.ViajeSeleccionadoModDelAction;
+import uo.sdi.acciones.listados.ViajesParticipadosAction;
+import uo.sdi.acciones.listados.ViajesPromotorAction;
 import alb.util.log.Log;
 
 public class Controlador extends javax.servlet.http.HttpServlet {
@@ -89,6 +99,8 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 	Accion accion = mapaDeAcciones.get(rol).get(opcion);
 	Log.debug("Elegida acción [%s] para opción [%s] y rol [%s]", accion,
 		opcion, rol);
+	if (opcion.equals("logout"))
+	    Log.info("Se procedera a cerrar la session");
 	return accion;
     }
 
@@ -113,19 +125,27 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 	mapaPublico.put("validarse", new ValidarseAction());
 	mapaPublico.put("listarViajes", new ListarViajesAction());
 	mapaPublico.put("registro", new RegistrarDatosAction());
-	mapaPublico.put("mostrarViaje", new MostrarViajesAction());
 	mapaDeAcciones.put("PUBLICO", mapaPublico);
 
 	Map<String, Accion> mapaRegistrado = new HashMap<String, Accion>();
-
-	mapaRegistrado.put("listarViajesReg", new ListarViajesAction());
 	mapaRegistrado.put("modificarDatos", new ModificarDatosAction());
-	mapaRegistrado.put("mostrarViaje", new MostrarViajesAction());
-	mapaRegistrado.put("nuevoViaje", new AddViajeAction());
-	mapaRegistrado.put("misViajes",new VerMisViajes());
-	mapaRegistrado.put("modificarViaje", new ModificarViajeAction());
+	mapaRegistrado.put("listarViajes", new ListarViajesAction());
+	mapaRegistrado.put("viajesPromotor", new ViajesPromotorAction());
+	mapaRegistrado.put("registroViajes", new RegistroPromotorAction());
+	mapaRegistrado.put("moddelViaje", new ViajeSeleccionadoModDelAction());
+	mapaRegistrado.put("borrarViaje", new BorrarViajeAction());
+	mapaRegistrado.put("modificarViajes", new ModificarViajeAction());
 	mapaRegistrado.put("apuntarse",new ApuntarseAction());
+	mapaRegistrado.put("viajesParticipados",new ViajesParticipadosAction());
+	mapaRegistrado.put("cancelarPlaza",new CancelarPlazaAction());
+	mapaRegistrado.put("usuariosPendientes",new ListadoUsuariosPendientesAction());
+	mapaRegistrado.put("confirmar", new ConfirmarPlazaAction());
+	mapaRegistrado.put("excluir", new ExcluirAction());
+	mapaRegistrado.put("mostrarViaje", new MostrarViajesAction());
+	mapaRegistrado.put("comentar", new ComentarAction());
+	mapaRegistrado.put("perfil", new CargarPerfilAction());
 	mapaDeAcciones.put("REGISTRADO", mapaRegistrado);
+	
     }
 
     private void crearMapaDeJSP() {
@@ -145,9 +165,6 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 	resJSP = new HashMap<String, String>();
 	resJSP.put("EXITO", "/registro.jsp");
 	opcionResJSP.put("registro", resJSP);
-	resJSP = new HashMap<String, String>();
-	resJSP.put("EXITO", "/mostrarViaje.jsp");
-	opcionResJSP.put("mostrarViaje", resJSP);
 	mapaDeNavegacion.put("PUBLICO", opcionResJSP);
 
 	// Crear mapas auxiliares vacíos
@@ -162,21 +179,49 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 	opcionResJSP.put("modificarDatos", resJSP);
 	resJSP = new HashMap<String, String>();
 	resJSP.put("EXITO", "/listaViajes.jsp");
-	opcionResJSP.put("listarViajesReg", resJSP);
+	opcionResJSP.put("listarViajes", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/misViajes.jsp");
+	opcionResJSP.put("viajesPromotor", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/registroViaje.jsp");
+	opcionResJSP.put("registroViajes", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/ModDelViajes.jsp");
+	opcionResJSP.put("moddelViaje", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/crudViajes.jsp");
+	opcionResJSP.put("borrarViaje", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/crudViajes.jsp");
+	opcionResJSP.put("modificarViajes", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/listaViajes.jsp");
+	opcionResJSP.put("apuntarse", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/viajesParticipados.jsp");
+	opcionResJSP.put("viajesParticipados", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/viajesParticipados");
+	opcionResJSP.put("cancelarPlaza", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/viajesParticipados");
+	opcionResJSP.put("usuariosPendientes", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/mostrarViaje.jsp");
+	opcionResJSP.put("confirmar", resJSP);
+	resJSP = new HashMap<String, String>();
+	resJSP.put("EXITO", "/mostrarViaje.jsp");
+	opcionResJSP.put("excluir", resJSP);
 	resJSP = new HashMap<String, String>();
 	resJSP.put("EXITO", "/mostrarViaje.jsp");
 	opcionResJSP.put("mostrarViaje", resJSP);
 	resJSP = new HashMap<String, String>();
-	resJSP.put("EXITO", "/registroViaje.jsp");
-	opcionResJSP.put("nuevoViaje", resJSP);
+	resJSP.put("EXITO", "/mostrarViaje.jsp");
+	opcionResJSP.put("comentar", resJSP);
 	resJSP = new HashMap<String, String>();
-	resJSP.put("EXITO", "/misViajes.jsp");
-	opcionResJSP.put("misViajes", resJSP);
-	resJSP = new HashMap<String, String>();
-	resJSP.put("EXITO", "/modificarViaje.jsp");
-	opcionResJSP.put("modificarViaje", resJSP);
-
-
+	resJSP.put("EXITO", "/perfilUsuario.jsp");
+	opcionResJSP.put("perfil", resJSP);
 	mapaDeNavegacion.put("REGISTRADO", opcionResJSP);
     }
 

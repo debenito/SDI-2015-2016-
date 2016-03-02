@@ -8,7 +8,7 @@
 </head>
 <body>
 <center><h1>ShareMyTrip - Listado de viajes</h1></center>
-<form action= "apuntarse?id=${viaje.id}">
+<form action= "apuntarse?id=${viaje.id}" method="post">
 	<table id="salida">
 			<tr>
 				<td>Lugar de salida:</td>
@@ -82,10 +82,29 @@
 			<tr>
 				<td>${viaje.comments }</td>
 			</tr>
+			<c:if test="${usuario==null}">
 			<tr>
 				<td><input type="submit" value="apuntarse"></td>
 			</tr>
+			</c:if>
 		</table>
-		</form>
+	</form>
+	<br>
+	<h3>Viajeros del viaje</h3>
+	<table id="viajeros">
+	<th>Nombre</th>
+	<th>Apellido</th>
+	<th>Acciones</th>
+	<c:forEach var="viajero" items="${viajeros}">
+	<tr> 
+	<td>${viajero.name}</td>
+	<td>${viajero.surname}</td>
+	<td><a href="perfil?id=${viajero.id}&idViaje=${viaje.id}">ver perfil</a>
+	<a href="confirmar?idTrip=${viaje.id}&idUser=${viajero.id}">confirmar plaza</a>
+	<a href="excluir?idTrip=${viaje.id}&idUser=${viajero.id}">cancelar reserva</a>
+	</td>
+	</tr>
+	</c:forEach>
+	</table>
 </body>
 </html>

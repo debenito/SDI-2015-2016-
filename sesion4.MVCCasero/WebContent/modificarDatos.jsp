@@ -41,18 +41,18 @@
 				</tr>
 				<tr>
 					<td>Contraseña nueva:</td>
-					<td id="pass"><input type="password" name="pass" size="15" /></td>
+					<td id="pass"><input type="password" name="pass" size="15"  /></td>
 				</tr>
 				<tr>
 					<td>Repita contraseña:</td>
-					<td id="pass1"><input type="password" name="pass1" size="15" /></td>
+					<td id="pass1"><input type="password" name="pass1" size="15"   /></td>
 				</tr>
 				<tr>
 					<td>
 				</tr>
 				<tr>
 				<td>Contraseña vieja</td>
-				<td><input type="password" name="passVieja" size="15" /></td>
+				<td><input type="password" name="passVieja" size="15" required="required" /></td>
 				</tr>
 				<tr>
 				<td><input type="submit" value="Confirmar"></td>
@@ -66,5 +66,9 @@
 	<c:if test="${mensajeError != null }">
 		<c:out value="${mensajeError }" />
 	</c:if>
+	<a href="viajesParticipados">Viajes Participados</a>
+	<a href="listarViajes">Lista de Viajes</a>
+	<a href="viajesPromotor">Mis Viajes</a>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

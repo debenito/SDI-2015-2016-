@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import uo.sdi.model.AddressPoint;
+import uo.sdi.model.SeatStatus;
 import uo.sdi.model.Trip;
 import uo.sdi.model.TripStatus;
 import uo.sdi.model.Waypoint;
@@ -132,11 +133,73 @@ public class TripDaoJdbcImpl implements TripDao {
     }
 
     @Override
-    public List<Trip> findByPromoterId(Long id) {
+    public List<Trip> listarViajesActivos(Date d, Long id) {
 
+	return jdbcTemplate.queryForList("TRIP_FIND_ALL_ACTIVE",
+		new TripMapper(), 0, 0, d, id,id);
+    }
+
+    @Override
+    public List<Trip> listarViajesPromotor(Long id) {
+	return jdbcTemplate.queryForList("TRIP_FIND_PROMOTOR",
+		new TripMapper(), id, TripStatus.CANCELLED.ordinal());
+    }
+
+    @Override
+    public int updateCancel(Long id) {
+	return jdbcTemplate.execute("TRIP_CANCEL",
+		TripStatus.CANCELLED.ordinal(), id);
+
+    }
+
+    @Override
+    public int updateDone(Date hoy) {
+	return jdbcTemplate.execute("TRIP_DONE", TripStatus.DONE.ordinal(), 0,
+		hoy);
+    }
+
+    @Override
+    public List<Trip> listaViajesParticipacionPromotor(Long id) {
+	// TODO Auto-generated method stub
+	return jdbcTemplate.queryForList("TRIP_FIND_BY_PROMOTER",
+		new TripMapper(), id);
+    }
+
+    @Override
+    public List<Trip> listaViajesParticipacionPendientes(Long id) {
+	// TODO Auto-generated method stub
+	return jdbcTemplate.queryForList("TRIP_FIND_PENDIENTES",
+		new TripMapper(), 0, id);
+    }
+
+    @Override
+    public List<Trip> listaViajesParticipacionSinPlaza(Long id) {
+	// TODO Auto-generated method stub
+	return jdbcTemplate.queryForList("TRIP_FIND_SINPLAZA",
+		new TripMapper(), 0, id, SeatStatus.ACCEPTED.ordinal(),
+		SeatStatus.EXCLUDED.ordinal());
+
+    }
+
+    @Override
+    public List<Trip> listaViajesParticipacionAdmitido(Long id) {
+	// TODO Auto-generated method stub
+	return jdbcTemplate.queryForList("TRIP_FIND_DENTRO", new TripMapper(),
+		SeatStatus.ACCEPTED.ordinal(), id);
+    }
+
+    @Override
+    public List<Trip> listaViajesParticipacionExcluido(Long id) {
+	// TODO Auto-generated method stub
+	return jdbcTemplate.queryForList("TRIP_FIND_DENTRO", new TripMapper(),
+		SeatStatus.EXCLUDED.ordinal(), id);
+
+    }
+
+    @Override
+    public List<Trip> findByPromoterId(Long id) {
 	return jdbcTemplate.queryForList("TRIP_FIND_BY_PROMOTER_ID",
 		new TripMapper(), id);
-
     }
 
 }

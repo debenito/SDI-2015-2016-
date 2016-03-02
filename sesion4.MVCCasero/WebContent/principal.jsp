@@ -22,9 +22,9 @@
 	<h2>Menu</h2>
 		<ul>
 			<li><a href="modificarDatos">Modificar mis datos</a></li>
-			<li><a href="listarViajesReg">Listar viajes</a></li>
-			<li><a href="nuevoViaje">Registrar nuevo viaje</a></li>
-			<li><a href="misViajes">Mis viajes</a>
+			<li><a href="listarViajes">Listar viajes</a></li>
+			<li><a href="registroViajes">Registrar nuevo viaje</a></li>
+			<li><a href="viajesPromotor">Mis viajes</a>
 		</ul>
 	</div>
 </body>

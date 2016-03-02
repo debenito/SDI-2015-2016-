@@ -22,14 +22,14 @@
 			<th>Estado</th>
 			<th>Acciones</th>
 		</tr>
-		<c:forEach var="entry" items="${listaViajes}" varStatus="i">
+		<c:forEach var="entry" items="${viajesPromotor}" varStatus="i">
 			<tr id="item_${i.index}">
 				
 				<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
 				<td>${entry.departure.city}</td>
 				<td>${entry.destination.city}</td>
 				<td>${entry.availablePax}</td>
-
+				<td>PROMOTOR</td>
 					<c:if test="${user.id!=null}">
 						<td>
 						<a href="modificarViaje?id=${entry.id}">Editar</a>
@@ -39,6 +39,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
 			<a href="principal.jsp">Atras</a>
 		</body>
 </html>
