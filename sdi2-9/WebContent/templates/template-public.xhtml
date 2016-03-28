@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<ui:insert name="head">
+		</ui:insert>
+	</h:head>
+	<h:body>
+		<h:form>
+			<p:selectOneMenu id="idioma" name="idioma"
+				value="#{settings.localeCode}"
+				valueChangeListener="#{settings.changeLanguage}" onchange="submit()">
+				<f:selectItems value="#{settings.countriesInMap}" />
+				<p:ajax event="select" render="@all" />
+			</p:selectOneMenu>
+			<p:megaMenu>
+				<p:menuitem value="#{msgs.home}" url="index.xhtml"
+					icon="ui-icon-arrowrefresh-1-w" />
+
+				<p:menuitem value="#{msgs.register}" url="register.xhtml"
+					icon="ui-icon-extlink" />
+				<p:menuitem value="#{msgs.listaviajes}" 
+					icon="ui-icon-arrowrefresh-1-w" url="listaviajes.xhtml">
+					</p:menuitem>
+			</p:megaMenu>
+		</h:form>
+		<ui:insert name="cuerpo">
+		</ui:insert>
+	</h:body>
+</f:view>
+</html>

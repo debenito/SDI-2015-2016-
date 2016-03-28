@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14585772848010" configfile="/sdi2-9/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="178" id="pf14586532500540" referenceLink="//@navigationRule.1/@navigationCase.2/@toViewId|" outlinks="pf14586542647055 pf14586542892018" inlinks="pf14586542892018 pf14586704174739 pf145867041747310" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="shared/principal.xhtml" x="554" y="178" id="pf14586542647057" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14586542647055" path="/shared/principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="122" y="178" id="pf145867041747311" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14586704174739 pf145867041747312 pf145867041747310" inlinks="pf145867041747312" path="/register.xhtml"/>
+  <links id="pf14586542647055" target="pf14586542647057" source="pf14586532500540" outcome="index" redirect="true"/>
+  <links id="pf14586704174739" target="pf14586532500540" source="pf145867041747311" outcome="register"/>
+  <links id="pf145867041747310" target="pf14586532500540" source="pf145867041747311" outcome="login"/>
+  <links id="pf14586542892018" target="pf14586532500540" source="pf14586532500540" outcome="fracaso" redirect="true">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf145867041747312" target="pf145867041747311" source="pf145867041747311" outcome="register/fail">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+</pageflow:Pageflow>

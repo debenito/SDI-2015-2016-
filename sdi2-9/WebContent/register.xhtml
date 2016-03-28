@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template-public.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="head">
+
+	</ui:define>
+	<ui:define name="cuerpo">
+
+		<p:layout style="min-width:400px;min-height:200px;">
+
+			<p:layoutUnit position="center">
+				<h:form>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+
+					<p:commandButton value="Info"
+						rendered="${!empty facesContext.messageList}" />
+					<h2>
+						#{msgs.pleaseReg} <small>#{msgs.gratis} </small>
+					</h2>
+
+					<p:panelGrid columns="2" cellpadding="10">
+
+						<h:outputLabel value="#{msgs.name}" />
+						<p:inputText name="nombre" id="nombre" maxlength="99"
+							class="form-control input-lg" a:placeholder="#{msgs.name}"
+							tabindex="1" value="#{controller.user.name}">
+							<!--  	<f:validator validatorId="DefaultValidator" />-->
+							<f:attribute name="campo" value="#{msgs.nombreValidator}" />
+						</p:inputText>
+
+						<h:outputLabel value="#{msgs.surname}" />
+						<p:inputText name="apellidos" id="apellidos" maxlength="99"
+							class="form-control input-lg" a:placeholder="#{msgs.surname}"
+							tabindex="2" value="#{controller.user.surname}">
+							<!--  <f:validator validatorId="DefaultValidator" />-->
+							<f:attribute name="campo" value="#{msgs.surnameValidator}" />
+						</p:inputText>
+
+						<h:outputLabel value="#{msgs.username}" />
+						<p:inputText name="nombreUsuario" id="nombreUsuario"
+							maxlength="99" class="form-control input-lg"
+							a:placeholder="#{msgs.username}" tabindex="3"
+							value="#{controller.user.login}">
+							<!--  <f:validator validatorId="DefaultValidator" />-->
+							<f:attribute name="campo" value="#{msgs.usernameValidator}" />
+						</p:inputText>
+
+						<h:outputLabel value="#{msgs.email}" />
+						<p:inputText class="form-control input-lg" maxlength="99"
+							a:placeholder="#{msgs.email}" aria-describedby="basic-addon2"
+							name="email" tabindex="4" id="email"
+							value="#{controller.user.email}">
+
+						</p:inputText>
+
+						<h:outputLabel value="#{msgs.password}" />
+						<p:password name="fpassword" id="fpassword" maxlength="99"
+							class="form-control input-lg" a:placeholder="#{msgs.password}"
+							tabindex="5" required="true" requiredMessage="#{msgs.emptyPass}"
+							value="#{controller.user.password}">
+							<f:validator validatorId="PasswordsValidator" />
+							<f:attribute name="fpasswordRepeat" value="#{fpasswordRepeat}" />
+						</p:password>
+
+						<h:outputLabel value="#{msgs.repeatPass}" />
+						<p:password name="fpasswordRepeat" maxlengtp="99"
+							id="fpasswordRepeat" class="form-control input-lg"
+							a:placeholder="#{msgs.repeatPass}" tabindex="6"
+							binding="#{fpasswordRepeat}" />
+
+					
+								
+							#{msgs.click} <strong class="label label-primary">#{msgs.register}</strong>,
+						
+							<p:commandButton value="#{msgs.register}"
+							class="btn btn-primary btn-block btn-lg"
+							action="#{controller.register(controller.user)}" />
+
+
+
+
+					</p:panelGrid>
+					<p:commandLink value="#{msgs.login}"
+						class="btn btn-success btn-block btn-lg" action="login"
+						outcome="login.xhtml" />
+				</h:form>
+
+			</p:layoutUnit>
+		</p:layout>
+
+	</ui:define>
+</ui:composition>
