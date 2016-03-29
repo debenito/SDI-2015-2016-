@@ -5,26 +5,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.crypto.Data;
 
 import uo.sdi.model.types.UserStatus;
 
-/**
- * This class is not an entity, it is a DTO with the same fields as a row in the
- * table
- * 
- * @see Data Transfer Object pattern
- * @author alb
- * 
- */
 @Entity
 @Table(name = "TUSERS")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login;
     private String password;
